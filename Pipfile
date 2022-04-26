@@ -5,8 +5,15 @@ name = "pypi"
 
 [packages]
 django = "==2.2.5"
+black = "*"
+pillow = "*"
+django-countries = "*"
+django-seed = "==0.2.2"
+numpy = "*"
 
 [dev-packages]
+flake8 = "*"
+pylint = "*"
 
 [requires]
 python_version = "3.9"

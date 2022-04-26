@@ -1,0 +1,30 @@
+{
+  "python.linting.flake8Enabled": true,
+  "python.linting.enabled": true,
+  "python.formatting.provider": "black",
+  "python.linting.flake8Args": ["--max-line-length=88"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+
+  // "python.linting.flake8Enabled": true,
+  // "python.linting.pylintEnabled": true,
+  // "python.linting.enabled": true,
+  // "python.linting.flake8Args": ["--max-line-length=91"],
+  // "python.formatting.provider": "black",
+  // "prettier.disableLanguages": ["html", "django-html"],
+
+  "[python]": { "editor.defaultFormatter": "ms-python.python" },
+
+  "files.associations": {
+    "**/*.html": "html",
+    "**/templates/**/*.html": "django-html",
+    "**/templates/**/*": "django-txt",
+    "**/requirements{/**,*}.{txt,in}": "pip-requirements"
+  },
+  "emmet.includeLanguages": {
+    "django-html": "html"
+  },
+  "beautify.language": {
+    "html": ["htm", "html", "django-html"]
+  }
+}
