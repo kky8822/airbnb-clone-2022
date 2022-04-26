@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
                 ('guests', models.IntegerField()),
                 ('beds', models.IntegerField()),
                 ('bedrooms', models.IntegerField()),
-                ('beths', models.IntegerField()),
+                ('baths', models.IntegerField()),
                 ('check_in', models.TimeField()),
                 ('check_out', models.TimeField()),
                 ('instant_book', models.BooleanField(default=False)),

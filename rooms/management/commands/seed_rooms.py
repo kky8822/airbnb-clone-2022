@@ -32,7 +32,7 @@ class Command(BaseCommand):
                 "guests": lambda x: random.randint(1, 5),
                 "beds": lambda x: random.randint(1, 5),
                 "bedrooms": lambda x: random.randint(1, 5),
-                "beths": lambda x: random.randint(1, 5),
+                "baths": lambda x: random.randint(1, 5),
             },
         )
         created_rooms = seeder.execute()
