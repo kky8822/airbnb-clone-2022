@@ -33,8 +33,12 @@ class User(AbstractUser):
     gender = models.CharField(choices=GENDER_CHOICE, max_length=10, blank=True)
     bio = models.TextField(blank=True)
     birthdate = models.DateField(blank=True, null=True)
-    language = models.CharField(choices=LANGUAGE_CHOICE, max_length=2, blank=True)
-    currency = models.CharField(choices=CURRENCY_CHOICE, max_length=3, blank=True)
+    language = models.CharField(
+        choices=LANGUAGE_CHOICE, max_length=2, blank=True, default=LANGUAGE_KOREAN
+    )
+    currency = models.CharField(
+        choices=CURRENCY_CHOICE, max_length=3, blank=True, default=CURRENCY_KRW
+    )
     superhost = models.BooleanField(default=False)
 
     # def get_absolute_url(self):
