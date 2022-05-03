@@ -10,6 +10,8 @@ pillow = "*"
 django-countries = "*"
 django-seed = "==0.2.2"
 numpy = "*"
+django-dotenv = "*"
+requests = "*"
 
 [dev-packages]
 flake8 = "*"

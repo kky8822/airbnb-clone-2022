@@ -6,6 +6,7 @@
 {% endblock search-bar %}
 
 {% block contents %}
+    {% include "partials/social_login.html" %}
     <form method="POST" action="{% url 'users:login' %}">
         {% csrf_token %}
         {{form.as_p}}
