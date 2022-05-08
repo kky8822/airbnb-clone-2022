@@ -1,8 +1,13 @@
 @tailwind base;
 @tailwind components;
+@tailwind utilities;
+
+.search-box {
+  transition: box-shadow 0.2s linear;
+}
 
 .nav_link {
-  @apply ml-8 border-b-2 border-white h-full flex items-center;
+  @apply ml-6 border-b-2 border-white h-full flex items-center;
   a {
     @apply py-10 px-5;
   }
@@ -12,14 +17,26 @@
 }
 
 .btn {
-  @apply w-full text-center py-5 mb-2 border rounded-sm font-medium;
+  @apply text-center rounded-sm py-5 font-light text-lg w-full;
 }
 
-.input {
-  @apply w-full text-left rounded-sm font-medium border border-gray-600 p-5 mb-3;
+input {
+  @apply rounded-sm py-5 font-light text-lg w-full text-left border border-gray-600 px-5;
   &:focus {
     @apply outline-none border-teal-500;
   }
 }
 
-@tailwind utilities;
+form {
+  .input {
+    @apply mb-3;
+    &.has_error {
+      input {
+        @apply bg-red-200 border-gray-400;
+        &:focus {
+          @apply border-gray-600;
+        }
+      }
+    }
+  }
+}
