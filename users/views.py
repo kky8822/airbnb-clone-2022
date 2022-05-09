@@ -1,4 +1,5 @@
 import os
+from pickletools import read_uint1
 import requests
 from django.views import View
 from django.views.generic import FormView
@@ -6,6 +7,8 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import authenticate, login, logout
 from django.core.files.base import ContentFile
+from django.contrib import messages
+
 from . import forms, models
 
 
@@ -78,6 +81,7 @@ class GithubException(Exception):
 
 def github_callback(request):
     try:
+        raise GithubException()
         client_id = os.environ.get("GH_ID")
         client_secret = os.environ.get("GH_SECRET")
         code = request.GET.get("code", None)
@@ -142,6 +146,7 @@ def github_callback(request):
         else:
             raise GithubException()
     except GithubException:
+        messages.error(request, "Hello!!!!!")
         return redirect(reverse("users:login"))
 
 

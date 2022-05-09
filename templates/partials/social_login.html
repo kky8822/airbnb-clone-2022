@@ -1,9 +1,10 @@
 <div class="flex flex-col w-full">
-    <a href="{% url 'users:github-login' %}" class="btn border-gray-700 text-gray-700">
+    <a href="{% url 'users:github-login' %}" class="btn border-green-700 bg-green-700 text-white mb-2">
+        {% comment %} github color: #2BA44E {% endcomment %}
         <i class="fab fa-github mr-2 fa-lg"></i> Continue with Github
     </a>
 
-    <a href="{% url 'users:kakao-login' %}" class="btn border-yellow-400 text-yellow-800 bg-yellow-400">
+    <a href="{% url 'users:kakao-login' %}" class="btn border-yellow-400 bg-yellow-400 text-yellow-800">
         <i class="fas fa-comment mr-2 fa-lg"></i> Continue with Kakao
     </a>
 </div>

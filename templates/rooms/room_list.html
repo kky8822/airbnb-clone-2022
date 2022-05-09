@@ -2,6 +2,10 @@
 
 {% block page_title %}Home{% endblock page_title %}
 
+{% block header %}
+  {% include "mixins/header.html" with searchbar="True" %}    
+{% endblock header %}
+
 {% block contents %}
 
   <div class="container mx-auto pb-10">
@@ -9,7 +13,7 @@
 
     <div class="flex flex-wrap mb-10">
       {% for room in rooms %}
-        {% include 'partials/room_card.html' with room=room %}
+        {% include 'mixins/room_card.html' with room=room %}
       {% endfor %}
     </div>
 
