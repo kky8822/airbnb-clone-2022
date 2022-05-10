@@ -117,6 +117,10 @@ def github_callback(request):
                     name = profile_json.get("name")
                     email = email_json[0].get("email")
                     bio = profile_json.get("bio")
+                    avatar_url = profile_json.get("avatar_url")
+
+                    if bio is None:
+                        bio = ""
                     try:
                         user = models.User.objects.get(email=email)
                         admin = models.User.objects.get(
@@ -141,6 +145,11 @@ def github_callback(request):
                         )
                         user.set_unusable_password()
                         user.save()
+                        if avatar_url is not None:
+                            photo_request = requests.get(avatar_url)
+                            user.avatar.save(
+                                f"{name}-avatar", ContentFile(photo_request.content)
+                            )
                     login(request, user)
                     messages.success(request, f"Welcome Back {user.first_name}")
                     return redirect(reverse("core:home"))
@@ -230,3 +239,8 @@ def kakao_callback(request):
 class UserProfileView(DetailView):
     model = models.User
     context_object_name = "user_obj"
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context["hello"] = "Hello!"
+    #     return context
