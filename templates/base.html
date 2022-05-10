@@ -14,12 +14,12 @@
   </head>
 
   <body class="text-gray-800 mt-24 font-light">
+    {% include "partials/messages.html" %}
 
     {% block header %}{% endblock header %}
 
     {% block contents %}{% endblock contents %}
 
-    {% include "partials/messages.html" %}
     {% include "partials/footer.html" %}
   </body>
 

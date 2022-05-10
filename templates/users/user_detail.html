@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block header %}
+  {% include "mixins/header.html" with searchbar="True" %}    
+{% endblock header %}
+
+{% block page_title %}{{user.first_name}}'s profile{% endblock page_title %}
+    
+{% block contents %}
+    <div class="container lg:w-5/12 md:w-1/2 xl:w-1/4 mx-auto my-10 flex flex-col items-center border p-6 border-gray-400">
+
+        {{user_obj.username}}
+        {{user_obj.first_name}}
+        {{user_obj.last_name}}
+        
+    </div>
+{% endblock contents %}
