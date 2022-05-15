@@ -1,3 +1,4 @@
+from ast import Try
 import os
 import requests
 from django.views import View
@@ -27,10 +28,10 @@ class LoginView(mixins.LoggedOutOnlyView, FormView):
 
     def get_success_url(self):
         next_arg = self.request.GET.get("next")
-        if next_arg is not None:
-            return next_arg
+        if next_arg == None:
+            return reverse("core:home")
         else:
-            reverse("core:home")
+            return next_arg
 
 
 def log_out(request):
