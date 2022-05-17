@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django_countries.fields import CountryField
 from core import models as core_models
+import random
 
 
 class AbstractItem(core_models.TimeStampedModel):
@@ -99,8 +100,19 @@ class Room(core_models.TimeStampedModel):
         return photo.file.url
 
     def get_next_four_photos(self):
-        photos = self.photos.all()[1:5]
-        return photos
+        photos = self.photos.all()
+        num_photos = photos.count()
+        tg_photos = []
+        if num_photos >= 5:
+            photos_ind = []
+            for i in range(4):
+                a = random.randint(1, num_photos - 1)
+                while a in photos_ind:
+                    a = random.randint(1, num_photos - 1)
+                photos_ind.append(a)
+                tg_photos.append(photos[a])
+
+        return tg_photos
 
 
 class Photo(core_models.TimeStampedModel):
