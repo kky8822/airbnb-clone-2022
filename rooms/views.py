@@ -1,8 +1,12 @@
 from curses import pair_content
 from dataclasses import field
+from typing_extensions import get_args
+from webbrowser import get
+from django.http import Http404
 from django.views.generic import ListView, DetailView, View, UpdateView
 from django.core.paginator import Paginator
 from django.shortcuts import render
+from users import mixins as user_mixins
 
 # from django.http import Http404
 # from django.urls import reverse
@@ -101,7 +105,7 @@ class SearchView(View):
         return render(request, "rooms/search.html", {"form": form})
 
 
-class EditRoomView(UpdateView):
+class EditRoomView(user_mixins.LoggedInOnlyView, UpdateView):
 
     model = models.Room
     template_name = "rooms/room_edit.html"
@@ -124,3 +128,21 @@ class EditRoomView(UpdateView):
         "facilities",
         "house_rules",
     )
+
+    def get_object(self, queryset=None):
+        room = super().get_object(queryset)
+        if room.host.pk != self.request.user.pk:
+            raise Http404
+        return room
+
+
+class RoomPhotosView(user_mixins.LoggedInOnlyView, DetailView):
+
+    model = models.Room
+    template_name = "rooms/room_photos.html"
+
+    def get_object(self, queryset=None):
+        room = super().get_object(queryset)
+        if room.host.pk != self.request.user.pk:
+            raise Http404
+        return room

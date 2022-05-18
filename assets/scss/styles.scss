@@ -31,6 +31,9 @@ select {
   &:focus {
     @apply outline-none border-teal-500;
   }
+  &[type="checkbox"] {
+    @apply w-auto;
+  }
 }
 
 textarea {
