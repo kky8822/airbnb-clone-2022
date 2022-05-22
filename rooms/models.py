@@ -3,6 +3,7 @@ from django.urls import reverse
 from django_countries.fields import CountryField
 from core import models as core_models
 import random
+from cal import Calendar
 
 
 class AbstractItem(core_models.TimeStampedModel):
@@ -116,6 +117,11 @@ class Room(core_models.TimeStampedModel):
                 tg_photos.append(photos[a])
 
         return tg_photos
+
+    def get_calendars(self):
+        this_month = Calendar(2022, 5)
+        next_month = Calendar(2022, 6)
+        return [this_month, next_month]
 
 
 class Photo(core_models.TimeStampedModel):
