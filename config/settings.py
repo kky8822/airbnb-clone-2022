@@ -150,3 +150,7 @@ EMAIL_HOST_PASSWORD = os.environ.get("MAILGUN_PASSWORD")
 EMAIL_FROM = (
     "airbnb_emailverification@sandbox54f79c62f02c49a2a72d1559153f0ce9.mailgun.org"
 )
+
+# Auth
+
+LOGIN_URL = "/users/login/"
