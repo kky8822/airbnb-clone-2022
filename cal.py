@@ -41,6 +41,7 @@ class Calendar(calendar.Calendar):
         days = []
         for week in weeks:
             for day, _ in week:
+<<<<<<< Updated upstream
                 now = timezone.now()
                 today = now.day
                 month = now.month
@@ -50,6 +51,9 @@ class Calendar(calendar.Calendar):
                         past = True
                 new_day = Day(number=day, past=past, month=self.month, year=self.year)
                 days.append(new_day)
+=======
+                days.append(day)
+>>>>>>> Stashed changes
         return days
 
     def get_month(self):
