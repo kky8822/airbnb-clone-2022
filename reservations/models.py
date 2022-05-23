@@ -1,4 +1,5 @@
 import datetime
+import random
 from django.db import models
 from django.utils import timezone
 from core import models as core_models
@@ -45,10 +46,10 @@ class Reservation(core_models.TimeStampedModel):
     is_finished.boolean = True
 
     def save(self, *args, **kwargs):
-        # if self.pk is None:
-        if True:
+        if self.pk is None:
             start = self.check_in
             end = self.check_out
+            # end = self.check_in + datetime.timedelta(days=random.randint(1, 10))
             differ = end - start
             existing_booked_day = BookedDay.objects.filter(
                 day__range=(start, end)

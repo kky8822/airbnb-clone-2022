@@ -39,10 +39,11 @@ class Command(BaseCommand):
             },
         )
         created = seeder.execute()
-        cleaned = flatten(list(created.values()))
-        for pk in cleaned:
-            tg = reservations_models.Reservation.objects.get(pk=pk)
-            tg.check_out = tg.check_in + timedelta(days=random.randint(1, 10))
-            tg.save()
+        # cleaned = flatten(list(created.values()))
+        # for pk in cleaned:
+        #     tg = reservations_models.Reservation.objects.get(pk=pk)
+        #     tg.check_out = tg.check_in + timedelta(days=random.randint(1, 10))
+        #     print(type(tg.check_out))
+        #     tg.save()
 
         self.stdout.write(self.style.SUCCESS(f"{number} {NAME} Created!"))

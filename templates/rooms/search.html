@@ -16,7 +16,8 @@
 
 <h3>Results</h3>
 {% for room in rooms %}
-<h3>{{room.name}}</h3>
+<a href="{{room.get_absolute_url}}""><h3>{{room.name}}</h3></a>
+
 {% endfor %}
 
 {% endblock contents %}

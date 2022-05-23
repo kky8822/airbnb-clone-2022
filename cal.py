@@ -3,14 +3,14 @@ from django.utils import timezone
 
 
 class Day:
-    def __init__(self, number, past, month, year):
-        self.number = number
+    def __init__(self, day, past, month, year):
+        self.day = day
         self.month = month
         self.year = year
         self.past = past
 
     def __str__(self):
-        return str(self.number)
+        return str(self.day)
 
 
 class Calendar(calendar.Calendar):
@@ -41,7 +41,6 @@ class Calendar(calendar.Calendar):
         days = []
         for week in weeks:
             for day, _ in week:
-<<<<<<< Updated upstream
                 now = timezone.now()
                 today = now.day
                 month = now.month
@@ -49,11 +48,8 @@ class Calendar(calendar.Calendar):
                 if self.month == month:
                     if day <= today:
                         past = True
-                new_day = Day(number=day, past=past, month=self.month, year=self.year)
+                new_day = Day(day=day, past=past, month=self.month, year=self.year)
                 days.append(new_day)
-=======
-                days.append(day)
->>>>>>> Stashed changes
         return days
 
     def get_month(self):
