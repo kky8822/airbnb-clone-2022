@@ -1,5 +1,4 @@
 import datetime
-import json
 from django import template
 from reservations import models as reservation_models
 
@@ -21,7 +20,6 @@ def is_booked_by_checkinout(room, day):
             check_out = datetime.datetime.combine(
                 reservation.check_out, datetime.datetime.min.time()
             )
-            print(check_in, check_out, date, date >= check_in and date <= check_out)
 
             if date >= check_in and date <= check_out:
                 return True
