@@ -2,9 +2,11 @@ import datetime
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import View
 from django.contrib import messages
+from django.http import Http404
 
 from rooms import models as room_models
 from . import models
+from reviews import forms as review_form
 
 
 # Create your views here.
@@ -32,5 +34,34 @@ def create(request, room, year, month, day):
 
 
 class ReservationDetailView(View):
-    def get(self):
-        pass
+    def get(self, *args, **kwargs):
+        pk = kwargs.get("pk")
+        reservation = models.Reservation.objects.get_or_none(pk=pk)
+
+        if not reservation or (
+            reservation.guest != self.request.user
+            and reservation.room.host != self.request.user
+        ):
+            raise Http404()
+        form = review_form.CreateReviewForm()
+        return render(
+            self.request,
+            "reservations/detail.html",
+            {"reservation": reservation, "form": form},
+        )
+
+
+def edit_reservation(request, pk, verb):
+    reservation = models.Reservation.objects.get_or_none(pk=pk)
+    if not reservation or (
+        reservation.guest != request.user and reservation.room.host != request.user
+    ):
+        raise Http404()
+    if verb == "confirmed":
+        reservation.status = models.Reservation.STATUS_CONFIRMED
+    if verb == "canceled":
+        reservation.status = models.Reservation.STATUS_CANCELED
+        models.BookedDay.objects.filter(reservation=reservation).delete()
+    reservation.save()
+    messages.success(request, f"Reservation {verb}")
+    return redirect(request.user.get_absolute_url())

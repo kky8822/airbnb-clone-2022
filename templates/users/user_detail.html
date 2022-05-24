@@ -43,6 +43,16 @@
                 </div>
             </div>        
         {% endif %}
+
+        {% if user_obj == user and user_obj.reservations.count > 0 %}
+            <div class="container flex flex-col items-center mx-auto pb-10">
+                <h3 class="mb-12 text-2xl">{{user_obj.first_name}}'s Reservations</h3>
+
+                {% for reservation in user_obj.reservations.all %}
+                    {% include "mixins/reservation/reservation_card.html" with reservation=reservation form=form%}
+                {% endfor %}
+            </div>        
+        {% endif %}
     </div>
 
 {% endblock contents %}

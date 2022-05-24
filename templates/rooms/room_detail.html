@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load is_booked_by_checkinout %}
+{% load is_booked %}
 
 {% block header %}
   {% include "mixins/header.html" with searchbar="True" %}    
@@ -102,7 +102,7 @@
                             </div>
                             <div class="cal-grid">
                                 {% for day in calendar.get_days %}
-                                    {% is_booked_by_checkinout room day as is_booked_bool %}
+                                    {% is_booked room day as is_booked_bool %}
                                     {% if day.day != 0 %}
                                         {% if is_booked_bool %}
                                             <span class="bg-gray-200 w-full text-center rounded p-1 text-gray-500 line-through">{{day}}</span>

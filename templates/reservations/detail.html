@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block header %}
+  {% include "mixins/header.html" with searchbar="True" %}    
+{% endblock header %}
+
+{% block page_title %}
+Reservation {{reservation.check_in}}
+{% endblock page_title %}
+
+{% block contents %}
+
+    {% include "mixins/reservation/reservation_card.html" with reservation=reservation form=form%} 
+
+{% endblock contents %}

@@ -14,6 +14,7 @@ class ReservationAdmin(admin.ModelAdmin):
         "guest",
         "in_progress",
         "is_finished",
+        "created",
     )
 
     list_filter = ("status",)
@@ -24,4 +25,5 @@ class BookedDayAdmin(admin.ModelAdmin):
     list_display = (
         "day",
         "reservation",
+        "created",
     )

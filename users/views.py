@@ -12,6 +12,7 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.decorators import login_required
 from . import forms, models, mixins
+from reviews import forms as review_form
 
 
 class LoginView(mixins.LoggedOutOnlyView, FormView):
@@ -247,11 +248,17 @@ def kakao_callback(request):
 class UserProfileView(mixins.LoggedInOnlyView, DetailView):
     model = models.User
     context_object_name = "user_obj"
+    form_class = review_form.CreateReviewForm
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
     #     context["hello"] = "Hello!"
     #     return context
+
+    def get_context_data(self, **kwargs):
+        context = super(UserProfileView, self).get_context_data(**kwargs)
+        context["form"] = self.form_class
+        return context
 
 
 class UpdateProfileView(mixins.LoggedInOnlyView, SuccessMessageMixin, UpdateView):
