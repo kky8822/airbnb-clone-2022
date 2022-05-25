@@ -1,5 +1,5 @@
-from ast import Try
 import os
+from django.http import HttpResponse
 import requests
 from django.views import View
 from django.views.generic import FormView, DetailView, UpdateView
@@ -11,8 +11,10 @@ from django.core.files.base import ContentFile
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.decorators import login_required
+from django.utils import translation
 from . import forms, models, mixins
 from reviews import forms as review_form
+from config import settings
 
 
 class LoginView(mixins.LoggedOutOnlyView, FormView):
@@ -336,3 +338,14 @@ def switch_hosting(request):
     except KeyError:
         request.session["is_hosting"] = True
     return redirect(reverse("core:home"))
+
+
+def switch_language(request):
+    lang = request.GET.get("lang", None)
+    response = HttpResponse(200)
+    if lang is not None:
+        # translation.activate(lang)
+        # response = HttpResponse(200)
+        # response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang)
+        request.session[translation.LANGUAGE_SESSION_KEY] = lang
+    return response

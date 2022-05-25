@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block header %}
+  {% include "mixins/header.html" with searchbar="True" %}    
+{% endblock header %}
+
+{% block page_title %}{{user.first_name}}'s Favourites{% endblock page_title %}
+    
+{% block contents %}
+    <div class="min-h-screen">
+        <div class="container flex flex-col items-center mx-auto pb-10">
+
+            <h3 class="mb-12 text-2xl">{{user.first_name}}'s Favourites</h3>
+
+            {% for list in user.lists.all %}
+                {{list}}
+                
+                    <div class="flex flex-wrap mb-10 w-full">
+                        {% for room in list.rooms.all %}
+                            {% include 'mixins/room_card.html' with room=room %}
+                        {% endfor %}
+                    </div>
+                
+            {% endfor %}
+    
+        
+        </div>
+        
+    </div>
+
+{% endblock contents %}

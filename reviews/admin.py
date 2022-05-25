@@ -8,5 +8,8 @@ class ReviewAdmin(admin.ModelAdmin):
 
     list_display = (
         "__str__",
+        "room",
         "rating_average",
     )
+
+    search_fields = ("^room__name",)

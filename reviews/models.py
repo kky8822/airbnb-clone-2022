@@ -29,6 +29,7 @@ class Review(core_models.TimeStampedModel):
     room = models.ForeignKey(
         "rooms.Room", on_delete=models.CASCADE, related_name="reviews"
     )
+    # review should be correlated with unique reservation
 
     def __str__(self):
         return f"{self.review} - {self.room}"

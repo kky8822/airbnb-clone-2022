@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load is_booked %}
+{% load is_booked is_fav i18n %}
 
 {% block header %}
   {% include "mixins/header.html" with searchbar="True" %}    
@@ -30,6 +30,12 @@
                     <span class="mt-2 text-gray-600">{{room.host.first_name}}</span>
                 </a>
             </div>
+            {% is_fav room as is_fav_bool %}
+            {% if is_fav_bool %}
+                <a href="{% url 'lists:remove-room' room.pk %}" class="btn-link_wo_w bg-teal-500 block w-2/5">Remove to Favourite</a>
+            {% else %}
+                <a href="{% url 'lists:save-room' room.pk %}" class="btn-link_wo_w bg-red-500 block w-2/5">Save to Favourite</a>
+            {% endif %}
             <div class="flex border-section">
                 <span class="mr-5">{{room.room_type}}</span>
                 <span class="mr-5">{{room.guests}} guest{{room.guests|pluralize}}</span>
@@ -91,6 +97,7 @@
             {% if room.host == user %}
                 <a href="{% url 'rooms:edit' room.pk %}" class="btn-link bg-red-500 block">Edit Room</a>
             {% else %}
+                
                 {% if not request.session.is_hosting %}
                     {% for calendar in room.get_calendars %}
                         <div class="mb-20">

@@ -18,9 +18,13 @@
             {% endif %}
         </div>
 
-        <span class="text-2xl border-b p-5 mt-2 w-full">
-            {{reservation.room.name}}
-        </span>
+        <a href="{% url 'rooms:detail' reservation.room.pk %}">
+            <div class="border-b p-5 mt-2 w-full">
+                <span class="text-2xl">
+                    {{reservation.room.name}}
+                </span>
+            </div>
+        </a>
             
         <div class="flex p-5 border-b w-full">
             <a href="{% url 'users:profile' reservation.room.host.pk %}"">
@@ -37,13 +41,14 @@
 
         <div class="py-10 px-5">
             {% if reservation.status != 'canceled' %}
+                
                 {% if reservation.status == 'confirmed' and reservation.is_finished %}
                     <span class="font-medium text-2xl text-center w-full block mb-5">Write your review</span>
                     <form action="{% url 'reviews:create' reservation.room.pk %}" method="POST" class="w-1/2 mx-auto">
-                       {% csrf_token %}
-                       {{form}}
-                       <button class="btn-link bg-teal-400 mt-5">Submit Review</button>
-                   </form>
+                        {% csrf_token %}
+                        {{form}}
+                        <button class="btn-link bg-teal-400 mt-5">Submit Review</button>
+                    </form>
                 {% else %}
                     {% if reservation.status == 'pending' %}
                         <a href="{% url 'reservations:edit' reservation.pk 'canceled' %}" class="btn-link bg-red-400 block px-5">Cancel Reservation</a>
