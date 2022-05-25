@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class CustomModelnManager(models.Manager):
+class CustomModelManager(models.Manager):
     def get_or_none(self, **kwargs):
         try:
             return self.get(**kwargs)
