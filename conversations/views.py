@@ -4,7 +4,7 @@ from django.shortcuts import redirect, reverse, render
 from django.views.generic import View
 from users import models as user_models
 from . import models as conv_models
-from . import forms as conv_forms
+
 
 # Create your views here.
 def go_conversation(request, h_pk, g_pk):
@@ -12,11 +12,12 @@ def go_conversation(request, h_pk, g_pk):
     guest = user_models.User.objects.get_or_none(pk=g_pk)
 
     if host is not None and guest is not None:
-        try:
-            conversation = conv_models.Conversation.objects.get(
-                Q(participants=host) & Q(participants=guest)
-            )
-        except conv_models.Conversation.DoesNotExist:
+        conversations = conv_models.Conversation.objects.filter(
+            participants=host
+        ).filter(participants=guest)
+        if len(conversations) != 0:
+            conversation = conversations[0]
+        else:
             conversation = conv_models.Conversation.objects.create()
             conversation.participants.add(host, guest)
 

@@ -16,6 +16,7 @@ requests = "*"
 [dev-packages]
 flake8 = "*"
 pylint = "*"
+awsebcli = "*"
 
 [requires]
 python_version = "3.9"

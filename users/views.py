@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import translation
 from . import forms, models, mixins
 from reviews import forms as review_form
-from config import settings
+from conversations import models as conv_models
 
 
 class LoginView(mixins.LoggedOutOnlyView, FormView):
@@ -349,3 +349,15 @@ def switch_language(request):
         # response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang)
         request.session[translation.LANGUAGE_SESSION_KEY] = lang
     return response
+
+
+class ConversationListView(mixins.LoggedInOnlyView, View):
+    def get(self, *args, **kwargs):
+        user = self.request.user
+        conversations = conv_models.Conversation.objects.filter(participants=user)
+
+        return render(
+            self.request,
+            "conversations/conversation_list.html",
+            {"conversations": conversations},
+        )

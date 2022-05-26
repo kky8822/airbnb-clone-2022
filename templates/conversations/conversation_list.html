@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block header %}
+  {% include "mixins/header.html" with searchbar="False" %}    
+{% endblock header %}
+
+{% block page_title %}Conversations List{% endblock page_title %}
+
+{% block contents %}
+
+    <div class="container mx-auto my-10 mt-32 flex flex-col items-center min-h-50vh">
+        {% for conv in conversations %}
+            <a href="{% url 'conversations:detail' conv.pk %}" class="border border-gray-500 rounded flex justify-between mt-10 items-center w-1/4 px-5 py-2">
+                {% for user in conv.participants.all  %}
+                    <div class="flex flex-col items-center">
+                        {% include "mixins/user_avatar.html" with user=user %}
+                        <span class="mt-2 text-gray-500">{{user.first_name}}</span>
+                    </div>
+                    {% if forloop.first %}
+                    <span class="font-medium text-2xl">&</span>
+                    {% endif %}
+                {% endfor %}
+            </a>
+        {% endfor %}
+    </div>
+
+{% endblock contents %}
