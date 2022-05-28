@@ -13,6 +13,7 @@ numpy = "*"
 django-dotenv = "*"
 requests = "*"
 pipenv-to-requirements = "*"
+sentry-sdk = "*"
 
 [dev-packages]
 flake8 = "*"
