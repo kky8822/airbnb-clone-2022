@@ -7,6 +7,15 @@ from django.utils.html import strip_tags
 from django.template.loader import render_to_string
 from django.shortcuts import reverse
 from core import managers as core_managers
+from django.contrib.auth.models import UserManager
+
+
+class CustomModelManager(UserManager):
+    def get_or_none(self, **kwargs):
+        try:
+            return self.get(**kwargs)
+        except self.model.DoesNotExist:
+            return None
 
 
 class User(AbstractUser):
@@ -62,7 +71,7 @@ class User(AbstractUser):
         max_length=80, choices=LOGIN_CHOICE, default=LOGIN_EMAIL
     )
 
-    objects = core_managers.CustomModelManager()
+    objects = CustomModelManager()
 
     def get_absolute_url(self):
         return reverse("users:profile", kwargs={"pk": self.pk})
