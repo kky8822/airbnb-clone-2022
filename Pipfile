@@ -12,6 +12,7 @@ django-seed = "==0.2.2"
 numpy = "*"
 django-dotenv = "*"
 requests = "*"
+pipenv-to-requirements = "*"
 
 [dev-packages]
 flake8 = "*"
