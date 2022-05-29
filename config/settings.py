@@ -26,6 +26,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET", "YaX2*^bbT8HMnBr@4pW7LIHGlH")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = bool(os.environ.get("DEBUG"))
 DEBUG = bool(os.environ.get("DEBUG"))
 
 ALLOWED_HOSTS = [".elasticbeanstalk.com", "127.0.0.1", "localhost"]
@@ -101,12 +102,12 @@ if DEBUG:
 else:
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "HOST": os.environ.get("RDS_HOST"),
+            "ENGINE": "django.db.backends.mysql",
             "NAME": os.environ.get("RDS_NAME"),
             "USER": os.environ.get("RDS_USER"),
             "PASSWORD": os.environ.get("RDS_PASSWORD"),
-            "PORT": "5432",
+            "HOST": os.environ.get("RDS_HOST"),
+            "PORT": os.environ.get("RDS_PORT"),
         }
     }
 
