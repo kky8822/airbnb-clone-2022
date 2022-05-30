@@ -150,7 +150,9 @@ USE_TZ = True
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-DEFAULT_FILE_STORAGE = "config.custom_storage.UloadStorage"
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+
+DEFAULT_FILE_STORAGE = "config.custom_storage.UploadStorage"
 STATICFILES_STORAGE = "config.custom_storage.StaticStorage"
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
@@ -162,17 +164,16 @@ AWS_S3_REGION_NAME = "ap-northeast-2"
 
 if DEBUG:
     STATIC_URL = "/static/"
+    MEDIA_URL = "/media/"
 else:
     AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
     STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
+    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 AUTH_USER_MODEL = "users.User"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
-
-MEDIA_URL = "/media/"
 
 # Email Configuration
 
