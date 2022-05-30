@@ -1,3 +1,4 @@
+import os
 from django.core.management.base import BaseCommand
 from users.models import User
 
@@ -10,7 +11,9 @@ class Command(BaseCommand):
         admin = User.objects.get_or_none(username="kky8822_admin@gmail.com")
         if not admin:
             User.objects.create_superuser(
-                "kky8822_admin@gmail.com", "kky8822_admin@gmail.com", "kky19121143"
+                os.environ.get("ADMIN_EMAIL"),
+                os.environ.get("ADMIN_EMAIL"),
+                os.environ.get("ADMIN_PASSWORD"),
             )
             self.stdout.write(self.style.SUCCESS(f"Superuser Created"))
         else:
