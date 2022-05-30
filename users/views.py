@@ -1,4 +1,5 @@
 import os
+from config import settings
 from django.http import HttpResponse
 import requests
 from django.views import View
@@ -167,7 +168,8 @@ def github_callback(request):
                 else:
                     raise GithubException("Can not get user information from Gihub API")
         else:
-            raise GithubException(f"{os.environ.get('DEBUG')} Can not get Github code")
+            # raise GithubException("Can not get Github code")
+            raise GithubException(f"{settings.DATABASES.default}")
     except GithubException as e:
         messages.error(request, e)
         return redirect(reverse("users:login"))
