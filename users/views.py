@@ -169,7 +169,7 @@ def github_callback(request):
                     raise GithubException("Can not get user information from Gihub API")
         else:
             # raise GithubException("Can not get Github code")
-            raise GithubException(f"{settings.DATABASES.default.ENGINE}")
+            raise GithubException(f"{settings.DATABASES['default']['ENGINE']}")
     except GithubException as e:
         messages.error(request, e)
         return redirect(reverse("users:login"))
