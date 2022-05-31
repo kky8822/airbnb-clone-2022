@@ -1,4 +1,5 @@
 import os
+import re
 from config import settings
 from django.http import HttpResponse
 import requests
@@ -97,6 +98,7 @@ def github_callback(request):
         client_id = os.environ.get("GH_ID")
         client_secret = os.environ.get("GH_SECRET")
         code = request.GET.get("code", None)
+        messages.success(request, f"{code}")
         if code is not None:
             result = requests.post(
                 f"https://github.com/login/oauth/access_token?client_id={client_id}&client_secret={client_secret}&code={code}",
