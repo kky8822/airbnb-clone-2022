@@ -98,7 +98,7 @@ def github_callback(request):
         client_id = os.environ.get("GH_ID")
         client_secret = os.environ.get("GH_SECRET")
         code = request.GET.get("code", None)
-        messages.success(request, f"{code}")
+
         if code is not None:
             result = requests.post(
                 f"https://github.com/login/oauth/access_token?client_id={client_id}&client_secret={client_secret}&code={code}",
@@ -170,8 +170,8 @@ def github_callback(request):
                 else:
                     raise GithubException("Can not get user information from Gihub API")
         else:
-            # raise GithubException("Can not get Github code")
-            raise GithubException(f"{settings.DATABASES['default']['ENGINE']}")
+            raise GithubException("Can not get Github code")
+
     except GithubException as e:
         messages.error(request, e)
         return redirect(reverse("users:login"))
@@ -179,7 +179,7 @@ def github_callback(request):
 
 def kakao_login(request):
     REST_API_KEY = os.environ.get("KAKAO_ID")
-    REDIRECT_URI = "http://http://airbnb-clone.eba-qspghbag.ap-northeast-2.elasticbeanstalk.com/users/login/kakao/callback"
+    REDIRECT_URI = "http://airbnb-clone.eba-qspghbag.ap-northeast-2.elasticbeanstalk.com/users/login/kakao/callback"
     return redirect(
         f"https://kauth.kakao.com/oauth/authorize?client_id={REST_API_KEY}&redirect_uri={REDIRECT_URI}&response_type=code"
     )
@@ -194,7 +194,7 @@ def kakao_callback(request):
         # raise KakaoException("Test Kakao auth error")
         code = request.GET.get("code")
         REST_API_KEY = os.environ.get("KAKAO_ID")
-        REDIRECT_URI = "http://http://airbnb-clone.eba-qspghbag.ap-northeast-2.elasticbeanstalk.com/users/login/kakao/callback"
+        REDIRECT_URI = "http://airbnb-clone.eba-qspghbag.ap-northeast-2.elasticbeanstalk.com/users/login/kakao/callback"
         token_request = requests.post(
             f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={REST_API_KEY}&redirect_uri={REDIRECT_URI}&code={code}"
         )
